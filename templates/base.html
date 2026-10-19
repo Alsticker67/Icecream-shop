@@ -1,0 +1,291 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Cookie&display=swap">
+
+    <title>{% block title %}{% endblock title %} | Ice Creams $hop</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍦</text></svg>">
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Page content grows so the footer always sits at the bottom */
+        main {
+            flex: 1 0 auto;
+        }
+
+        .navbar-brand {
+            font-family: 'Cookie', cursive;
+            font-size: 1.9rem;
+        }
+
+        /* ---------- Product card (shared) ---------- */
+        .product-card {
+            border: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        .product-card .card-img-top {
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product-card .card-img-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fde7c8, #f8c8d8);
+            color: #a52a2a;
+            font-size: 64px;
+        }
+
+        .product-card .price {
+            color: #a52a2a;
+            font-weight: 600;
+            font-size: 1.15rem;
+        }
+
+        .product-card .price small {
+            font-weight: 400;
+            color: #6c757d;
+        }
+
+        /* ---------- Footer ---------- */
+        .site-footer {
+            flex-shrink: 0;
+            background-color: #2c292f;
+            color: #fff;
+            padding: 40px 0 30px;
+        }
+
+        .site-footer h3 {
+            font: normal 36px 'Cookie', cursive;
+            margin: 0;
+        }
+
+        .site-footer h3 span {
+            color: #e0ac1c;
+        }
+
+        .site-footer .footer-links {
+            margin: 16px 0 10px;
+        }
+
+        .site-footer .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 1px 4px;
+        }
+
+        .site-footer .footer-links a:hover {
+            background-color: #e0ac1c;
+        }
+
+        .site-footer .footer-company-name {
+            color: #8f9296;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .site-footer .contact-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .site-footer .contact-row i {
+            flex-shrink: 0;
+            background-color: #33383b;
+            font-size: 18px;
+            width: 38px;
+            height: 38px;
+            line-height: 38px;
+            border-radius: 50%;
+            text-align: center;
+            margin-right: 15px;
+        }
+
+        .site-footer .contact-row p {
+            margin: 0;
+        }
+
+        .site-footer .contact-row a {
+            color: #e0ac1c;
+        }
+
+        .site-footer .footer-about {
+            color: #92999f;
+            font-size: 13px;
+            line-height: 20px;
+        }
+
+        .site-footer .footer-about span {
+            display: block;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .site-footer .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            margin: 12px 8px 0 0;
+            border-radius: 50%;
+            background: #fff;
+            color: #2c292f;
+            text-align: center;
+            font-size: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .site-footer .social-icons a:hover { color: #fff; }
+        .site-footer .social-icons .facebook:hover { background: #3B5999; }
+        .site-footer .social-icons .twitter:hover { background: #46C1F6; }
+        .site-footer .social-icons .instagram:hover { background: #e1306c; }
+        .site-footer .social-icons .github:hover { background: #333; }
+        .site-footer .social-icons .youtube:hover { background: #DE463B; }
+
+        @media (max-width: 767px) {
+            .site-footer {
+                text-align: center;
+            }
+
+            .site-footer .footer-col {
+                margin-bottom: 28px;
+            }
+
+            .site-footer .contact-row {
+                justify-content: center;
+            }
+        }
+    </style>
+    {% block extra_head %}{% endblock extra_head %}
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Ice Creams $hop</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item {% if request.path == '/about' %}active{% endif %}">
+        <a class="nav-link" href="/about">About Us</a>
+      </li>
+      <li class="nav-item dropdown {% if '/services' in request.path or request.path == '/familypack' %}active{% endif %}">
+        <a class="nav-link dropdown-toggle" href="/services" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Services
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/services">All Services</a>
+          <div class="dropdown-divider"></div>
+          {% for category in categories %}
+          <a class="dropdown-item" href="/services/{{ category.slug }}"><i class="{{ category.icon }} fa-fw mr-2 text-muted"></i>{{ category.name }}</a>
+          {% endfor %}
+        </div>
+      </li>
+      <li class="nav-item {% if request.path == '/contact' %}active{% endif %}">
+        <a class="nav-link" href="/contact">Contact Us</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method="get" action="/services">
+      <input class="form-control mr-sm-2" type="search" name="q" value="{{ query|default:'' }}" placeholder="Search ice creams" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">
+  <strong>{{ message }}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
+
+<main>
+{% block body %}{% endblock body %}
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 footer-col">
+        <h3>About<span>Treat&amp;TastyIcecream</span></h3>
+        <p class="footer-links">
+          <a href="/">Home</a> |
+          <a href="/services">Menu</a> |
+          <a href="/about">About</a> |
+          <a href="/contact">Contact</a>
+        </p>
+        <p class="footer-company-name">&copy; {% now "Y" %} Ice Cream $hop Pvt. Ltd.</p>
+      </div>
+
+      <div class="col-md-4 footer-col">
+        <div class="contact-row">
+          <i class="fas fa-map-marker-alt"></i>
+          <p>310 - Shantakrut, Bldg. No. A - 1, Sector - 1<br>Mahape, Mumbai - 400710</p>
+        </div>
+        <div class="contact-row">
+          <i class="fas fa-phone"></i>
+          <p>+91 22-27502750</p>
+        </div>
+        <div class="contact-row">
+          <i class="fas fa-envelope"></i>
+          <p><a href="mailto:alphaeagle200@gmail.com">support@icereamy.com</a></p>
+        </div>
+      </div>
+
+      <div class="col-md-4 footer-col">
+        <p class="footer-about">
+          <span>About the company</span>
+          We have offer for training and skill for building their own online shop website using Technology to come
+          across the world with the help of Design, Management, Science and Humanities.
+        </p>
+        <div class="social-icons">
+          <a class="facebook" href="http://www.facebook.com" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a class="twitter" href="http://www.twitter.com" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a class="instagram" href="http://www.instagram.com" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a class="github" href="http://www.github.com" title="Github"><i class="fab fa-github"></i></a>
+          <a class="youtube" href="http://www.youtube.com" title="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

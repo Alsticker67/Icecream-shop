@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ page_title|default:"Services" }}{% endblock title %}
+
+{% block extra_head %}
+<style>
+    .services-header {
+        background: linear-gradient(to right, #00AAFF, #00FF6C);
+        padding: 40px 16px 30px;
+        text-align: center;
+        color: #fff;
+    }
+
+    .services-header h1 {
+        font-weight: 600;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
+
+    /* category filter pills */
+    .category-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .category-nav a {
+        padding: 6px 18px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.25);
+        color: #fff;
+        text-decoration: none;
+        transition: background 0.3s, color 0.3s;
+    }
+
+    .category-nav a:hover,
+    .category-nav a.active {
+        background: #fff;
+        color: #2c292f;
+    }
+
+    .services-body {
+        padding: 40px 0 20px;
+    }
+
+    .category-section {
+        margin-bottom: 30px;
+    }
+
+    .category-section h2 {
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .category-section h2 i {
+        color: #e0ac1c;
+        margin-right: 8px;
+    }
+</style>
+{% endblock extra_head %}
+
+{% block body %}
+<section class="services-header">
+    <h1>{{ page_title|default:"Our Menu & Services" }}</h1>
+    <p class="mb-0">Ice creams for every craving, from a single scoop to a party for a hundred.</p>
+    <nav class="category-nav">
+        <a href="/services" class="{% if not active_slug and not query %}active{% endif %}">All</a>
+        {% for category in categories %}
+        <a href="/services/{{ category.slug }}" class="{% if category.slug == active_slug %}active{% endif %}">{{ category.name }}</a>
+        {% endfor %}
+    </nav>
+</section>
+
+<section class="services-body">
+    <div class="container">
+        {% if query %}
+            <p class="text-center mb-4">
+                {{ results|length }} result{{ results|length|pluralize }} for "<strong>{{ query }}</strong>" &middot; <a href="/services">Show all</a>
+            </p>
+            <div class="row">
+                {% for product in results %}
+                <div class="col-sm-6 col-lg-4 mb-4">
+                    {% include '_product_card.html' with category=product.category %}
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-light text-center">No ice creams match "{{ query }}".</div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            {% for category in sections %}
+            <div class="category-section" id="{{ category.slug }}">
+                <h2><i class="{{ category.icon }}"></i>{{ category.name }}</h2>
+                <p class="text-muted mb-4">{{ category.tagline }}</p>
+                <div class="row">
+                    {% for product in category.products %}
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        {% include '_product_card.html' %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>
+{% endblock body %}

@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About{% endblock title %}
+
+{% block extra_head %}
+<style>
+    .about-section {
+        background-color: #ddd;
+        padding: 60px 0;
+    }
+
+    .about-section h1 {
+        text-transform: uppercase;
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        font-weight: 600;
+    }
+
+    .about-section h1:hover {
+        color: #a52a2a;
+    }
+
+    .about-section h3 {
+        margin-top: 20px;
+        font-size: 21px;
+    }
+
+    .about-section p {
+        margin-top: 15px;
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    .about-section .read-more {
+        display: inline-block;
+        margin-top: 20px;
+        background-color: #3d3d3d;
+        padding: 10px 36px;
+        color: #fff;
+        font-size: 20px;
+        letter-spacing: 1.5px;
+        text-decoration: none;
+    }
+
+    .about-section .read-more:hover {
+        background-color: #a52a2a;
+    }
+
+    .about-section .social {
+        margin-top: 30px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #abc;
+    }
+
+    .about-section .social img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 12px;
+        transition: transform 0.3s;
+    }
+
+    .about-section .social img:hover {
+        transform: translateY(-5px);
+    }
+
+    .about-section .profile {
+        width: 100%;
+        max-width: 380px;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 50%;
+        transition: transform 1s;
+    }
+
+    .about-section .profile:hover {
+        transform: scale(1.05);
+    }
+
+    .stats {
+        background-color: #2c292f;
+        color: #fff;
+        padding: 45px 0;
+    }
+
+    .stats .stat-number {
+        font-size: 2.4rem;
+        font-weight: 600;
+        color: #e0ac1c;
+    }
+
+    .stats .stat-label {
+        color: #ccc;
+    }
+
+    @media (max-width: 767px) {
+        .about-section {
+            text-align: center;
+        }
+    }
+</style>
+{% endblock extra_head %}
+
+{% block body %}
+<section class="about-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-7 mb-5 mb-md-0">
+                <h1>About Us</h1>
+                <h3>Scooping happiness in Mumbai since 2015.</h3>
+                <p>Treat &amp; Tasty Ice Cream started as a small parlour in Mahape with just six flavours and a
+                    simple idea: real ice cream made fresh every morning from milk, cream and seasonal fruit. Today we
+                    churn more than thirty flavours, from classic vanilla and rich Belgian chocolate to mango, sitaphal
+                    and our famous softy.</p>
+                <p>Whether you drop by for a single cone or order a family pack for a celebration, every scoop is made
+                    with the same care. No artificial colours, no shortcuts, just honest ice cream.</p>
+                <a class="read-more" href="http://www.google.com">Read More</a>
+
+                <div class="social">
+                    <a href="http://www.facebook.com" target="_blank"><img src="{% static 'download.png' %}" alt="facebook"></a>
+                    <a href="http://www.twitter.com" target="_blank"><img src="{% static 'download (1).jpg' %}" alt="twitter"></a>
+                    <a href="http://www.instagram.com" target="_blank"><img src="{% static 'download.jpg' %}" alt="instagram"></a>
+                </div>
+            </div>
+
+            <div class="col-md-5 text-center">
+                <img class="profile" src="{% static 'vr3.jpeg' %}" alt="Profile">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-6 col-md-3 mb-4 mb-md-0">
+                <div class="stat-number">30+</div>
+                <div class="stat-label">Flavours</div>
+            </div>
+            <div class="col-6 col-md-3 mb-4 mb-md-0">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Happy customers</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Outlets</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-number">2015</div>
+                <div class="stat-label">Established</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body %}
